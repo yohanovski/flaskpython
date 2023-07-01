@@ -9,23 +9,25 @@ def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'admin123'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
-    
-    db.init_app(app)  # Initialisez db avec l'application Flask
-    
-    # Importez les blueprints avant l'enregistrement
+
+    db.init_app(app)  # Initialiser db avec l'application Flask
+
+    # Importer les blueprints avant l'enregistrement
     from .views import views
     from .auth import auth
 
     app.register_blueprint(views, url_prefix='/views')
     app.register_blueprint(auth, url_prefix='/')
 
-    # Importez les tables après l'initialisation de db
+    # Importer les tables après l'initialisation de db
     from .models import User, Supplier, Product, Client, Sale, Shipment
 
-    create_database(app)
+    create_database(app)  # Appeler la fonction sans argument
+
     return app
 
 def create_database(app):
     if not path.exists('website/' + DB_NAME):
-        db.create_all(app=app)
+        with app.app_context():
+            db.create_all()
         print('Created Database!')

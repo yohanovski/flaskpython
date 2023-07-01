@@ -1,7 +1,6 @@
 from flask import Blueprint, render_template , request , redirect 
 from .models import User , Client , Product , Supplier , Shipment , Sale, db 
 from werkzeug.security import check_password_hash
-
 import re 
 
 
@@ -72,7 +71,7 @@ def add_user():
         db.session.add(new_user)
         db.session.commit()
 
-    return render_template("add_user.html")
+    return render_template("login.html")
 
 @auth.route('/add_client', methods= ['GET','POST'])
 def add_client(): 
@@ -98,12 +97,12 @@ def add_client():
         db.session.commit()
 
         # Rediriger vers la page de tableau des clients
-        return redirect('/clients')
+        return redirect('login.html')
 
     return render_template("add_client.html")
 
 @auth.route('/add_supplier', methods=['GET','POST'])
-def add_suplier():
+def add_supplier():
     if request.method == 'POST':
         # Récupérer les données du formulaire
         matricule = request.form.get('matricule')

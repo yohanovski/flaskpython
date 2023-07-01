@@ -36,7 +36,7 @@ class Sale(db.Model):
         date = db.Column(db.DateTime(timezone=True), default=func.now())
         Montant = db.Column(db.Integer)
         client_id = db.Column(db.String, db.ForeignKey('client.CIN_C'))
-        produits = db.Column(db.Integer , db.ForeignKey('produit.Code'))
+        produits = db.Column(db.Integer , db.ForeignKey('product.Code'))
         products = db.relationship('Product')
 
 
@@ -45,7 +45,7 @@ class Shipment(db.Model):
         date = db.Column(db.DateTime(timezone=True), default=func.now())
         Montant = db.Column(db.Integer)
         Supplier_id = db.Column(db.String, db.ForeignKey('supplier.Matricule'))
-        produits = db.Column(db.Integer , db.ForeignKey('produit.Code'))
+        produits = db.Column(db.Integer , db.ForeignKey('product.Code'))
         products = db.relationship('Product')
 
          
