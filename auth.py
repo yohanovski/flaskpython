@@ -1,11 +1,11 @@
-from flask import Blueprint, render_template , request , redirect 
-from .models import User , Client , Product , Supplier , Shipment , Sale, db 
+import sqlite3
+from flask import Blueprint, render_template, request, redirect
 from werkzeug.security import check_password_hash
-import re 
+import re
 
+DB_NAME = "database.db"
 
-
-auth = Blueprint('auth',__name__)
+auth = Blueprint('auth', __name__)
 
 @auth.route('/login', methods=['GET','POST'])
 def login():
@@ -13,90 +13,102 @@ def login():
         CIN = request.form.get('CIN')
         password = request.form.get('password')
 
-        # Vérification du modèle CIN
+        # Verification of CIN pattern
         cin_pattern = r"[A-Z]{2}[0-9]{5}"
         if not re.match(cin_pattern, CIN):
-            error = "CIN invalide. Veuillez entrer un CIN valide."
+            error = "Invalid CIN. Please enter a valid CIN."
             return render_template('login.html', error=error)
 
-        # Vérification de l'utilisateur dans la base de données
-        user = User.query.filter_by(CIN_U=CIN).first()
-        if not user or not check_password_hash(user.password, password):
-            error = "CIN ou mot de passe incorrect."
+        # Verification of user in the database
+        conn = sqlite3.connect(DB_NAME)
+        c = conn.cursor()
+
+        c.execute("SELECT * FROM user WHERE CIN_U = ?", (CIN,))
+        user = c.fetchone()
+
+        conn.close()
+
+        if not user or not check_password_hash(user[4], password):
+            error = "Incorrect CIN or password."
             return render_template('login.html', error=error)
 
-        # Redirection en fonction du type d'utilisateur
-        if user.type_u == 1:
+        # Redirect based on user type
+        if user[5] == 'ADMIN':
             return redirect('/page1')
-        elif user.type_u == 2:
+        elif user[5] == 'EMP_VENTES':
             return redirect('/page2')
-        elif user.type_u == 3:
+        elif user[5] == 'EMP_APPS':
             return redirect('/page3')
-    return render_template("login.html")
+    return "<p>Account created successfully</p>"
 
 @auth.route('/logout')
 def logout():
-    return "<p> logout </p>"
+    return "<p>logout</p>"
 
-@auth.route('/add_user', methods= ['GET','POST'])
+@auth.route('/add_user', methods=['GET','POST'])
 def add_user():
     if request.method == 'POST':
         CIN = request.form.get('CIN')
-        first_name = request.form.get('first_name')
-        last_name = request.form.get('last_name')
+        first_name = request.form.get('Fname')
+        last_name = request.form.get('Lname')
         email = request.form.get('email')
-        password = request.form.get('password')
+        password = request.form.get('password1')
         role = request.form.get('role')
 
-        # Vérification du format CIN
+        # Verification of CIN pattern
         cin_pattern = r"[A-Z]{2}[0-9]{5}"
         if not re.match(cin_pattern, CIN):
-            error = "CIN invalide. Veuillez entrer un CIN valide."
+            error = "Invalid CIN. Please enter a valid CIN."
             return render_template('add_client.html', error=error)
-        
-         # Vérifie la valeur de 'role' et attribue la valeur correspondante à 'type_u'
+
+        # Check the value of 'role' and assign corresponding value to 'type_u'
         if role == 'option1':
-            User.type_u = '1'
-        elif role == ' option2':
-            User.type_u = '2'
+            type_u = 'ADMIN'
+        elif role == 'option2':
+            type_u = 'EMP_VENTES'
         elif role == 'option3':
-            User.type_u = '3'
+            type_u = 'EMP_APPS'
         else:
-            return 'Erreur : aucun rôle sélectionné'
+            return 'Error: No role selected'
 
-        # Créez un nouvel objet User et affectez les valeurs des champs
-        new_user = User(CIN_U=CIN, Fname=first_name, Lname=last_name, email=email, password=password, type_u=role)
+        # Connect to the database
+        conn = sqlite3.connect(DB_NAME)
+        c = conn.cursor()
 
-        # Ajoutez le nouvel utilisateur à la base de données
-        db.session.add(new_user)
-        db.session.commit()
+        # Insert a new user
+        c.execute("INSERT INTO user (CIN, Fname, Lname, email, password, type_u) VALUES (?, ?, ?, ?, ?, ?)",
+                  (CIN, first_name, last_name, email, password, type_u))
 
-    return render_template("login.html")
+        conn.commit()
+        conn.close()
 
-@auth.route('/add_client', methods= ['GET','POST'])
-def add_client(): 
+        return redirect("login.html")
+
+    return render_template("add_user.html")
+
+@auth.route('/add_client', methods=['GET','POST'])
+def add_client():
     if request.method == 'POST':
-        # Récupérer les données du formulaire
         cin = request.form.get('cin')
         name = request.form.get('name')
         email = request.form.get('email')
         adresse = request.form.get('adresse')
         tel = request.form.get('tel')
 
-        # Vérification du format CIN
         cin_pattern = r"[A-Z]{2}[0-9]{5}"
         if not re.match(cin_pattern, cin):
-            error = "CIN invalide. Veuillez entrer un CIN valide."
+            error = "Invalid CIN. Please enter a valid CIN."
             return render_template('add_client.html', error=error)
 
-        # Créer un nouvel objet Client
-        new_client = Client(CIN_C=cin, name=name, email=email, adresse=adresse, Tel=tel)
+        conn = sqlite3.connect(DB_NAME)
+        c = conn.cursor()
 
-        # Ajouter le nouveau client à la base de données
-        db.session.add(new_client)
-        db.session.commit()
+        c.execute("INSERT INTO client (CIN_C, name, email, adresse, Tel) VALUES (?, ?, ?, ?, ?)",
+                  (cin, name, email, adresse, tel))
 
-        # Rediriger vers la page de tableau des clients
+        conn.commit()
+        conn.close()
+
         return redirect('login.html')
 
     return render_template("add_client.html")
@@ -104,23 +116,23 @@ def add_client():
 @auth.route('/add_supplier', methods=['GET','POST'])
 def add_supplier():
     if request.method == 'POST':
-        # Récupérer les données du formulaire
         matricule = request.form.get('matricule')
         name = request.form.get('name')
         email = request.form.get('email')
         adresse = request.form.get('adresse')
         tel = request.form.get('tel')
 
-        # Créer un nouvel objet Supplier
-        new_supplier = Supplier(Matricule=matricule, name=name, email=email, adresse=adresse, Tel=tel)
+        conn = sqlite3.connect(DB_NAME)
+        c = conn.cursor()
 
-        # Ajouter le nouveau fournisseur à la base de données
-        db.session.add(new_supplier)
-        db.session.commit()
+        c.execute("INSERT INTO supplier (Matricule, name, email, adresse, Tel) VALUES (?, ?, ?, ?, ?)",
+                  (matricule, name, email, adresse, tel))
 
-        # Rediriger vers la page de tableau des fournisseurs
+        conn.commit()
+        conn.close()
+
         return redirect('/suppliers')
-    
+
     return render_template("add_supplier.html")
 
 @auth.route("add_sale", methods=['GET','POST'])
