@@ -1,0 +1,101 @@
+{% extends "base.html" %} {%block title%} Sign Up {% endblock%}
+{% block style %} 
+<style type="text/css">
+    form{
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+    }
+</style>
+{%endblock%}
+{% block content %}
+<h3 align = "center">Add user form</h3>
+    <form method="post">
+        <div class="form-group">
+            <label for= "CIN">CIN : </label>
+            <input 
+            type="CIN"
+            name="CIN" 
+            id="CIN"
+            class="form-control"
+            pattern="[A-Z]{2}[0-9]{5}" 
+            placeholder="Numéro de CIN"
+            required
+            />
+        </div>
+        
+        <div class="form-group">
+            <label for= "Fname">First Name : </label>
+            <input 
+            type="name"
+            name="Fname" 
+            id="Fname"
+            class="form-control"
+            required
+            />
+        </div>
+
+        <div class="form-group">
+            <label for= "Lname">Last Name : </label>
+            <input 
+            type="name"
+            name="Lname" 
+            id="Lname"
+            class="form-control"
+            required
+            />
+        </div>
+
+        <div class="form-group">
+            <label for= "email">Email : </label>
+            <input 
+            type="email"
+            name="email" 
+            id="email"
+            class="form-control"
+            required
+            />
+        </div>
+
+        <div class="form-group">
+            <label for= "password1">password : </label>
+            <input 
+            type="password"
+            name="password1" 
+            id="password1"
+            class="form-control"
+            required
+            />
+        </div>
+
+        <div class="form-group">
+            <label for= "password2">Confirm password : </label>
+            <input 
+            type="password"
+            name="password2" 
+            id="password2"
+            class="form-control"
+            />
+        </div>
+
+        <div class="form-group">
+            <p><b>Selectionner le rôle de cet utilisateur</b></p>
+            <input type="radio" id="option1" name="role" value="Option 1" required>
+            <label for="option1">Admin</label>
+            <br>
+
+            <input type="radio" id="option2" name="role" value="Option 2" required>
+            <label for="option2">Emp Ventes </label>
+            <br>
+
+            
+            <input type="radio" id="option3" name="role" value="Option 3" required>
+            <label for="option3">Emp Approvisionnement</label>
+
+        </div>
+
+        <br />
+  <button type="submit" class="btn btn-primary">Ajouter</button>
+
+    </form>
+{% endblock %}

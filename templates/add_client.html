@@ -1,0 +1,79 @@
+{% extends "base.html" %} {%block title%} Sign Up {% endblock%}
+{% block style %} 
+<style type="text/css">
+    form{
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+    }
+</style>
+{%endblock%}
+{% block content %}
+<h3 align = "center">Add client form</h3>
+    <form method="post">
+        <div class="form-group">
+            <label for= "CIN">CIN: </label>
+            <input 
+            type="CIN"
+            name="CIN" 
+            id="CIN"
+            pattern="[A-Z]{2}[1-9]{5}"
+            class="form-control"
+            />
+        </div>
+
+        <div class="form-group">
+            <label for= "Fname">First Name : </label>
+            <input 
+            type="name"
+            name="Fname" 
+            id="Fname"
+            class="form-control"
+            />
+        </div>
+
+        <div class="form-group">
+            <label for= "Lname">Last Name : </label>
+            <input 
+            type="name"
+            name="Lname" 
+            id="Lname"
+            class="form-control"
+            />
+        </div>
+
+        <div class="form-group">
+            <label for= "email">Email : </label>
+            <input 
+            type="email"
+            name="email" 
+            id="email"
+            class="form-control"
+            />
+        </div>
+
+        <div class="form-group">
+            <label for= "adresse">adresse: </label>
+            <input 
+            type="adresse"
+            name="adresse" 
+            id="adresse"
+            class="form-control"
+            />
+        </div>
+
+        <div class="form-group">
+            <label for= "telephone">N°tel  : </label>
+            <input 
+            type="telephone"
+            name="telephone" 
+            id="telephone"
+            class="form-control"
+            />
+        </div>
+
+        <br />
+  <button type="submit" class="btn btn-primary">Enregistrer</button>
+
+    </form>
+{% endblock %}

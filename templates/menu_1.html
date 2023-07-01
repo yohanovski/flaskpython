@@ -1,0 +1,60 @@
+{%extends "base.html"%} {%block title%} Menu ADMIN{%endblock%}
+{%block style%}
+<style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 100px;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .logout-button {
+      background-color: #FF0000;
+    }
+  </style>
+{%endblock%}
+{%block content%}
+<h1>Welcome, {{ username }}</h1>
+  <div class="container">
+    <button onclick="window.location.href='/products.html'"><strong>Produits</strong></button>
+    <button onclick="window.location.href='/sales.html'" {% if role != 1 and role != 2 %} class="hidden" {% endif %}><strong>Ventes</strong></button>
+    <button onclick="window.location.href='/clients.html'" {% if role != 1 and role != 2 %} class="hidden" {% endif %}><strong>Clients</strong></button>
+    <button onclick="window.location.href='/suppliers.html'" {% if role != 1 and role != 3 %} class="hidden" {% endif %}><strong>Fournisseurs</strong></button>
+    <button onclick="window.location.href='/shipments.html'" {% if role != 1 and role != 3 %} class="hidden" {% endif %}><strong>Arrivages</strong></button>
+    <button onclick="window.location.href='/users.html'" {% if role != 1 %} class="hidden" {% endif %}><strong>Users</strong></button>
+    <button onclick="window.location.href='/logout'" class="logout-button"><strong>Log out</strong></button>
+  </div>
+{%endblock%}

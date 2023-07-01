@@ -1,0 +1,91 @@
+{% extends "base.html" %} {%block title%} Sign Up {% endblock%}
+{% block style %} 
+<style type="text/css">
+    form{
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+    }
+</style>
+{%endblock%}
+{% block content %}
+<h3 align = "center">Add app form</h3>
+    <form method="post">
+        <div class="form-group">
+            <label for= "date">Date_App: </label>
+            <input 
+            type="date"
+            name="date" 
+            id="date"
+            class="form-control"
+            />
+        </div>
+
+        <div class="form-group">
+            <label for= "Montant_A">Montant_App : </label>
+            <input 
+            type="Montant_A"
+            name="Montant_A" 
+            id="Montant_A"
+            class="form-control"
+            />
+        </div>
+
+        <div class="form-group">
+            <label for= "Lname">N° matricule Fournisseur: </label>
+            <input 
+            type="matricule"
+            name="matricule" 
+            id="matricule"
+            class="form-control"
+            />
+        </div>
+
+        <div class="form-group">
+            <label for= "email">Email : </label>
+            <input 
+            type="email"
+            name="email" 
+            id="email"
+            class="form-control"
+            />
+        </div>
+
+        <div class="form-group">
+            <label for= "adresse">adresse: </label>
+            <input 
+            type="adresse"
+            name="adresse" 
+            id="adresse"
+            class="form-control"
+            />
+        </div>
+
+        <div class="form-group">
+            <label for= "telephone">N°tel  : </label>
+            <input 
+            type="telephone"
+            name="telephone" 
+            id="telephone"
+            class="form-control"
+            />
+        </div>
+
+        <div class="form-group">
+            <label for= "email">Porduits Selectionnées : </label>
+            <select id="product_list" name="product_list" required>
+                <option value="">Sélectionnez un produit</option>
+                <!-- Boucle sur les produits pour créer les options -->
+                {% for product in product_list %}
+                  <option value="{{ product.id }}">{{ product.name }}</option>
+                {% endfor %}
+              </select>
+            
+        </div>
+
+
+        <br />
+  <button type="submit" class="btn btn-primary">Enregistrer</button>
+
+    </form>
+{% endblock %}
