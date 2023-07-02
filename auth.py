@@ -3,6 +3,7 @@ from flask import Blueprint, render_template, request, redirect
 from werkzeug.security import check_password_hash
 import re
 
+
 DB_NAME = "database.db"
 
 auth = Blueprint('auth', __name__)
@@ -23,8 +24,16 @@ def login():
         conn = sqlite3.connect(DB_NAME)
         c = conn.cursor()
 
-        c.execute("SELECT * FROM user WHERE CIN_U = ?", (CIN,))
+        c.execute("SELECT * FROM user WHERE CIN = ?", (CIN,))
         user = c.fetchone()
+
+        # Redirect based on user type
+        if user[5] == 'ADMIN':
+            return redirect("/menu_1")
+        elif user[5] == 'EMP_VENTES':
+            return redirect('/menu_2')
+        elif user[5] == 'EMP_APPS':
+            return redirect('/menu_3')
 
         conn.close()
 
@@ -32,14 +41,8 @@ def login():
             error = "Incorrect CIN or password."
             return render_template('login.html', error=error)
 
-        # Redirect based on user type
-        if user[5] == 'ADMIN':
-            return redirect('/page1')
-        elif user[5] == 'EMP_VENTES':
-            return redirect('/page2')
-        elif user[5] == 'EMP_APPS':
-            return redirect('/page3')
-    return "<p>Account created successfully</p>"
+        
+    return render_template("login.html")
 
 @auth.route('/logout')
 def logout():
@@ -138,3 +141,16 @@ def add_supplier():
 @auth.route("add_sale", methods=['GET','POST'])
 def add_sale():
     return render_template("add_vente.html")
+
+@auth.route('/menu_1')
+def menu_1():
+    return render_template('menu_1.html')
+
+@auth.route('/menu_2')
+def menu_2():
+    return render_template('menu_2.html')
+
+@auth.route('/menu_3')
+def menu_3():
+    return render_template('menu_3.html')
+
