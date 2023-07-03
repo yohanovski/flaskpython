@@ -85,7 +85,7 @@ def add_user():
         conn.commit()
         conn.close()
 
-        return redirect("/login")
+        return redirect("/user")
 
     return render_template("add_user.html")
 
@@ -112,7 +112,7 @@ def add_client():
         conn.commit()
         conn.close()
 
-        return redirect('login.html')
+        return redirect('client.html')
 
     return render_template("add_client.html")
 
