@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Users{% endblock %}
+
+{% block style %}
+<style>
+  .menu-container {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.menu-button{
+ margin-left: 30px;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>Users</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>CIN</th>
+        <th>F_name</th>
+        <th>L_name</th>
+        <th>Email</th>
+        <th>password</th>
+        <th>type_u</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in users %}
+      <tr>
+        <td>{{ user[0] }}</td>
+        <td>{{ user[1] }}</td>
+        <td>{{ user[2] }}</td>
+        <td>{{ user[3] }}</td>
+        <td>{{ user[4] }}</td>
+        <td>{{ user[5] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="menu-container">
+    <button class="menu-button">Create</button>
+    <button class="menu-button">Modify</button>
+    <button class="menu-button">Delelte</button>
+</div>
+
+{% endblock %}

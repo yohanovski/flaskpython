@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Sales{% endblock %}
+
+{% block style %}
+<style>
+  .menu-container {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.menu-button{
+ margin-left: 30px;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>Sales</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>date</th>
+        <th>Montant</th>
+        <th>Client_id</th>
+        <th>produits</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for sale in sales %}
+      <tr>
+        <td>{{ sale[0] }}</td>
+        <td>{{ sale[1] }}</td>
+        <td>{{ sale[2] }}</td>
+        <td>{{ sale[3] }}</td>
+        <td>{{ sale[4] }}</td>
+        <td>{{ sale[5] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="menu-container">
+    <button class="menu-button">Create</button>
+    <button class="menu-button">Modify</button>
+    <button class="menu-button">Delelte</button>
+</div>
+
+{% endblock %}

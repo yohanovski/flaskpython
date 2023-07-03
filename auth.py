@@ -8,7 +8,7 @@ DB_NAME = "database.db"
 
 auth = Blueprint('auth', __name__)
 
-@auth.route('/login', methods=['GET','POST'])
+@auth.route('', methods=['GET','POST'])
 def login():
     if request.method == 'POST':
         CIN = request.form.get('CIN')
@@ -85,7 +85,7 @@ def add_user():
         conn.commit()
         conn.close()
 
-        return redirect("login.html")
+        return redirect("/login")
 
     return render_template("add_user.html")
 
@@ -153,4 +153,61 @@ def menu_2():
 @auth.route('/menu_3')
 def menu_3():
     return render_template('menu_3.html')
+
+
+@auth.route('/user')
+def Users():
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM user")
+    data = cursor.fetchall()
+    conn.close()
+    return render_template('user.html', users=data)
+
+@auth.route('/supplier')
+def Suppliers():
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM supplier")
+    data = cursor.fetchall()
+    conn.close()
+    return render_template('supplier.html', suppliers=data)
+
+@auth.route('/client')
+def Clients():
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM client")
+    data = cursor.fetchall()
+    conn.close()
+    return render_template('client.html', clients=data)
+
+@auth.route('/product')
+def Products():
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM product")
+    data = cursor.fetchall()
+    conn.close()
+    return render_template('product.html', products=data)
+
+@auth.route('/shipment')
+def Shipments():
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM shipment")
+    data = cursor.fetchall()
+    conn.close()
+    return render_template('shipment.html', shipments=data)
+
+@auth.route('/sale')
+def Sales():
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM sale")
+    data = cursor.fetchall()
+    conn.close()
+    return render_template('sale.html', sales=data)
+
+
 

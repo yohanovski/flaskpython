@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Shipments{% endblock %}
+
+{% block style %}
+<style>
+  .menu-container {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.menu-button{
+ margin-left: 30px;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>Shipments</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>date</th>
+        <th>Montant</th>
+        <th>Supplier_id</th>
+        <th>produits</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for shipment in Shipments %}
+      <tr>
+        <td>{{ shipment[0] }}</td>
+        <td>{{ shipment[1] }}</td>
+        <td>{{ shipment[2] }}</td>
+        <td>{{ shipment[3] }}</td>
+        <td>{{ shipment[4] }}</td>
+        <td>{{ shipment[5] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="menu-container">
+    <button class="menu-button">Create</button>
+    <button class="menu-button">Modify</button>
+    <button class="menu-button">Delelte</button>
+</div>
+
+{% endblock %}

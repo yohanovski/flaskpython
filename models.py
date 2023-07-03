@@ -48,6 +48,7 @@ class Shipment(db.Model):
         produits = db.Column(db.Integer , db.ForeignKey('product.Code'))
         products = db.relationship('Product')
 
+
          
 
 

@@ -1,11 +1,13 @@
 import sqlite3
 from flask import Flask
 
+
 DB_NAME = "database.db"
 
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'admin123'
+
 
     create_database()
 

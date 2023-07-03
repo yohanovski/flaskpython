@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Suppliers{% endblock %}
+
+{% block style %}
+<style>
+  .menu-container {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.menu-button{
+ margin-left: 30px;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>Suppliers</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Matricule</th>
+        <th>Nom</th>
+        <th>email</th>
+        <th>adresse</th>
+        <th>tel</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for supplier in suppliers %}
+      <tr>
+        <td>{{ supplier[0] }}</td>
+        <td>{{ supplier[1] }}</td>
+        <td>{{ supplier[2] }}</td>
+        <td>{{ supplier[3] }}</td>
+        <td>{{ supplier[4] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="menu-container">
+    <button class="menu-button">Create</button>
+    <button class="menu-button">Modify</button>
+    <button class="menu-button">Delelte</button>
+</div>
+
+{% endblock %}
