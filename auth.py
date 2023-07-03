@@ -138,9 +138,18 @@ def add_supplier():
 
     return render_template("add_supplier.html")
 
-@auth.route("add_sale", methods=['GET','POST'])
+@auth.route("/add_sale", methods=['GET','POST'])
 def add_sale():
     return render_template("add_vente.html")
+
+@auth.route("/add_app", methods=['GET','POST'])
+def add_app():
+    return render_template("add_app.html")
+
+@auth.route("/add_product", methods=['GET','POST'])
+def add_product():
+    return render_template("add_product.html")
+
 
 @auth.route('/menu_1')
 def menu_1():

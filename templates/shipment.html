@@ -44,9 +44,13 @@
 </div>
 
 <div class="menu-container">
-    <button class="menu-button">Create</button>
+    <button class="menu-button" onclick="addshipment()">Create</button>
     <button class="menu-button">Modify</button>
     <button class="menu-button">Delelte</button>
 </div>
-
+<script>
+    function addshipment(){
+        window.location.href='/add_app'
+    }
+</script>
 {% endblock %}

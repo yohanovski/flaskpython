@@ -44,9 +44,13 @@
 </div>
 
 <div class="menu-container">
-    <button class="menu-button">Create</button>
+    <button class="menu-button" onclick="addsale()">Create</button>
     <button class="menu-button">Modify</button>
     <button class="menu-button">Delelte</button>
 </div>
-
+<script>
+    function addsale(){
+        window.location.href="/add_sale"
+    }
+</script>
 {% endblock %}

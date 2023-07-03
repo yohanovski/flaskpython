@@ -16,12 +16,22 @@
 <div class="container">
   <h1 class="text-center">Bonjour,  {{Fname}}{{Lname}}</h1>
   <div class="menu-container">
-    <button class="menu-button">Bouton 1</button>
-    <button class="menu-button">Bouton 2</button>
-    <button class="menu-button">Bouton 3</button>
-    
+    <button class="menu-button" onclick="redirectproduct()">Products</button>
+    <button class="menu-button" onclick="redirecsupplier()">Suppliers</button>
+    <button class="menu-button" onclick="redirectshipment()">Shipments</button>
   </div>
 </div>
+<script>
+  function redirectproduct(){
+    window.location.href="/product"
+  }
+  function redirectsupplier(){
+    window.location.href="/supplier"
+  }
+  function redirectshipment(){
+    window.location.href="/shipment"
+  }
+</script>
 
 
 {%endblock%}
