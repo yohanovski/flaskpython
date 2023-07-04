@@ -80,3 +80,13 @@ def create_database():
     conn.commit()
     conn.close()
     print('Created Database!')
+
+
+
+def get_product_list():
+    conn = sqlite3.connect(DB_NAME)
+    c = conn.cursor()
+    c.execute("SELECT Libelle FROM product , shipment Where product.Code = shipment.produits")
+    products = c.fetchall()
+    conn.close()
+    return products

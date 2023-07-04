@@ -43,9 +43,13 @@
 </div>
 
 <div class="menu-container">
-    <button class="menu-button">Create</button>
+    <button class="menu-button" onclick= "redirectproduct()">Create</button>
     <button class="menu-button">Modify</button>
     <button class="menu-button">Delelte</button>
 </div>
-
+<script>
+  function redirectproduct(){
+    window.location.href = "/add_product"
+  }
+</script>
 {% endblock %}

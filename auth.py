@@ -2,7 +2,7 @@ import sqlite3
 from flask import Blueprint, render_template, request, redirect
 from werkzeug.security import check_password_hash
 import re
-
+from . import get_product_list
 
 DB_NAME = "database.db"
 
@@ -134,7 +134,7 @@ def add_supplier():
         conn.commit()
         conn.close()
 
-        return redirect('/suppliers')
+        return redirect('/supplier')
 
     return render_template("add_supplier.html")
 
@@ -142,13 +142,70 @@ def add_supplier():
 def add_sale():
     return render_template("add_vente.html")
 
+
 @auth.route("/add_app", methods=['GET','POST'])
 def add_app():
+    if request.method == 'POST':
+        # Récupérer les données du formulaire
+        date_app = request.form.get('date')
+        montant_app = request.form.get('Montant_A')
+        matricule_fournisseur = request.form.get('matricule')
+        email = request.form.get('email')
+        adresse = request.form.get('adresse')
+        telephone = request.form.get('telephone')
+        produit_selectionne = request.form.get('product_list')
+
+        # Valider les données (vous pouvez ajouter vos propres validations ici)
+
+        # Insérer les données dans la table Shipment
+        conn = sqlite3.connect(DB_NAME)
+        c = conn.cursor()
+        
+
+        # Récupérer la liste des produits
+        get_product_list()
+        
+
+        c.execute("INSERT INTO Shipment (date_app, montant_app, matricule_fournisseur, email, adresse, telephone, produit_selectionne) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                  (date_app, montant_app, matricule_fournisseur, email, adresse, telephone, produit_selectionne))
+
+        conn.commit()
+        conn.close()
+
+        # Rediriger vers le route /shipment
+        return redirect('/shipment')
+    
+        # Rendre le template du formulaire avec la liste des produits
     return render_template("add_app.html")
 
 @auth.route("/add_product", methods=['GET','POST'])
 def add_product():
-    return render_template("add_product.html")
+    if request.method == 'POST':
+        code = request.form.get('id_c')
+        libelle = request.form.get('Libelle')
+        qte = request.form.get('qte')
+        pu_a = request.form.get('PU_A')
+        pu_v = request.form.get('PU_V')
+        supplier_id = request.form.get('matricule')
+
+        conn = sqlite3.connect(DB_NAME)
+        c = conn.cursor()
+
+        # Vérification de l'existence du supplier_id dans la table supplier
+        c.execute("SELECT Matricule FROM supplier WHERE Matricule = ?", (supplier_id,))
+        supplier = c.fetchone()
+
+        if supplier:
+            c.execute("INSERT INTO product (Code, Libelle, QTE, PU_A, PU_V) VALUES (?, ?, ?, ?, ?)",
+                      (code, libelle, qte, pu_a, pu_v))
+            conn.commit()
+            conn.close()
+
+            return redirect('/product')
+        else:
+            error = "Le supplier_id n'existe pas."
+            return render_template('add_products.html', error=error)
+    return render_template("add_products.html")
 
 
 @auth.route('/menu_1')
