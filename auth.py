@@ -298,10 +298,10 @@ def Suppliers():
 def Clients():
     conn = sqlite3.connect('database.db')
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM client")
+    cursor.execute("SELECT * FROM client ")
     data = cursor.fetchall()
     conn.close()
-    return render_template('client.html', clients=data)
+    return render_template('client.html', Clients=data)
 
 @auth.route('/product')
 def Products():
