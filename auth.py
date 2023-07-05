@@ -159,21 +159,21 @@ def add_sale():
         c = conn.cursor()
 
         # Vérification de l'existence du client_id dans la table client
-        c.execute("SELECT * FROM Client WHERE client_id = ?", (CIN_C,))
+        c.execute("SELECT * FROM Client WHERE CIN_C = ?", (CIN_C,))
         client = c.fetchone()
         if not client:
             error = "Invalid client_id. Please enter a valid client_id."
             return render_template('add_vente.html', error=error)
 
         # Vérification de l'existence du code_p dans la table produits
-        c.execute("SELECT * FROM Produits WHERE code_p = ?", (code_p,))
+        c.execute("SELECT * FROM product WHERE Code = ?", (code_p,))
         produit = c.fetchone()
         if not produit:
             error = "Invalid product code. Please enter a valid product code."
             return render_template('add_vente.html', error=error)
 
         # Vérification de la disponibilité de la quantité de vente dans la table produits
-        c.execute("SELECT QTE FROM Produits WHERE code_p = ?", (code_p,))
+        c.execute("SELECT QTE FROM product WHERE Code = ?", (code_p,))
         qte_dispo = c.fetchone()
         if not qte_dispo or int(qte_dispo[0]) < int(qte_v):
             error = "Insufficient quantity available for sale."
@@ -181,14 +181,15 @@ def add_sale():
 
         # Mise à jour de la quantité dans la table produits
         nouvelle_qte = int(qte_dispo[0]) - int(qte_v)
-        c.execute("UPDATE Produits SET QTE = ? WHERE code_p = ?", (nouvelle_qte, code_p))
+        c.execute("UPDATE product SET QTE = ? WHERE Code = ?", (nouvelle_qte, code_p))
 
         # Insertion de la vente dans la table Shipment
-        c.execute("INSERT INTO Shipment (id, date, Montant, client_id, Code_p, qte_vente) VALUES (?, ?, ?, ?, ?, ?)",
+        c.execute("INSERT INTO sale (id, date, Montant, client_id, Code_p, qte_vente) VALUES (?, ?, ?, ?, ?, ?)",
                   (id_v, date_vente, montant_v, CIN_C, code_p, qte_v))
 
         conn.commit()
         conn.close()
+        return redirect('/sale')
 
     return render_template("add_vente.html")
 
@@ -319,7 +320,7 @@ def Shipments():
     cursor.execute("SELECT * FROM shipment")
     data = cursor.fetchall()
     conn.close()
-    return render_template('shipment.html', shipments=data)
+    return render_template('shipment.html', Shipments=data)
 
 @auth.route('/sale')
 def Sales():
@@ -330,5 +331,80 @@ def Sales():
     conn.close()
     return render_template('sale.html', sales=data)
 
+@auth.route('/delete_U', methods=['GET','POST'])
+def delete_u():
+    if request.method =='POST':
+        code = request.form.get('CIN')
+        conn = sqlite3.connect(DB_NAME)
+        c= conn.cursor()
+        c.execute("DELETE FROM user WHERE CIN =?",(code,))
+        conn.commit()
+        conn.close()
+        return redirect('/user')
+    return render_template('delete_user.html')
 
+@auth.route('/delete_P', methods=['GET','POST'])
+def delete_p():
+    if request.method =='POST':
+        code = request.form.get('Code')
+        conn = sqlite3.connect(DB_NAME)
+        c= conn.cursor()
+        c.execute("DELETE FROM product WHERE Code =?",(code,))
+        conn.commit()
+        conn.close()
+        return redirect('/product')
+    return render_template('delete_product.html')
+
+@auth.route('/delete_S', methods=['GET','POST'])
+def delete_s():
+    if request.method =='POST':
+        code = request.form.get('matricule')
+        conn = sqlite3.connect(DB_NAME)
+        c= conn.cursor()
+        c.execute("DELETE FROM supplier WHERE Matricule =?",(code,))
+        conn.commit()
+        conn.close()
+        return redirect('/supplier')
+    return render_template('delete_supplier.html')
+
+@auth.route('/delete_C', methods=['GET','POST'])
+def delete_c():
+    if request.method =='POST':
+        code = request.form.get('CIN')
+        conn = sqlite3.connect(DB_NAME)
+        c= conn.cursor()
+        c.execute("DELETE FROM client WHERE CIN =?",(code,))
+        conn.commit()
+        conn.close()
+        return redirect('/client')
+    return render_template('delete_client.html')
+
+@auth.route('/delete_Sh', methods=['GET','POST'])
+def delete_sh():
+    if request.method =='POST':
+        code = request.form.get('id_app')
+        conn = sqlite3.connect(DB_NAME)
+        c= conn.cursor()
+        c.execute("DELETE FROM shipment WHERE id =?",(code,))
+        conn.commit()
+        conn.close()
+        return redirect('/shipment')
+    return render_template('delete_shipment.html')
+
+@auth.route('/delete_V', methods=['GET','POST'])
+def delete_v():
+    if request.method =='POST':
+        code = request.form.get('id_sale')
+        conn = sqlite3.connect(DB_NAME)
+        c= conn.cursor()
+        c.execute("DELETE FROM sale WHERE id =?",(code,))
+        conn.commit()
+        conn.close()
+        return redirect('/sale')
+    return render_template('delete_sale.html')
+
+
+
+
+    
 

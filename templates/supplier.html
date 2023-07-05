@@ -44,12 +44,14 @@
 
 <div class="menu-container">
     <button class="menu-button" onclick="addsupplier()">Create</button>
-    <button class="menu-button">Modify</button>
-    <button class="menu-button">Delelte</button>
+    <button class="menu-button" onclick="delete_s()">Delete</button>
 </div>
 <script>
   function addsupplier(){
     window.location.href = "/add_supplier"
+  }
+  function delete_s(){
+    window.location.href = "/delete_S"
   }
 </script>
 

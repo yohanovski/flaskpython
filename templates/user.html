@@ -47,11 +47,14 @@
 <div class="menu-container">
     <button class="menu-button" onclick="adduser()">Create</button>
     <button class="menu-button">Modify</button>
-    <button class="menu-button">Delelte</button>
+    <button class="menu-button" onclick="redirectdelete_u()">Delete</button>
 </div>
 <script>
   function adduser(){
     window.location.href="/add_user"
+  }
+  function redirectdelete_u(){
+    window.location.href="/delete_U"
   }
 </script>
 {% endblock %}

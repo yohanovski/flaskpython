@@ -1,0 +1,17 @@
+{% extends "base.html" %} {%block title%} Delete_U {% endblock%}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='form.css') }}">
+<div class="box" style="margin-top: 100px;">
+    <h3 align="center">Delete Supplier form</h3>
+    <form method="post">
+        <div class="form-group">
+            <label for="matricule">Matriucle : </label>
+            <input type="matricule" name="matricule" id="matricule" class="form-control" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Supprimer</button>
+
+    </form>
+</div>
+{% endblock %}

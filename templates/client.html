@@ -47,13 +47,15 @@
 
 <div class="menu-container">
     <button class="menu-button" onclick="addclient()">Create</button>
-    <button class="menu-button">Modify</button>
-    <button class="menu-button">Delelte</button>
+    <button class="menu-button" onclick="delete_client()">Delelte</button>
 </div>
 
 <script>
     function addclient(){
         window.location.href="/add_client"
+    }
+    function delete_client(){
+      window.location.href="/delete_C"
     }
 </script>
 

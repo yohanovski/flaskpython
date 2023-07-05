@@ -3,6 +3,7 @@
 
 {% block style %}
 <style>
+  
   .menu-container {
     height: 200px;
     display: flex;
@@ -44,12 +45,14 @@
 
 <div class="menu-container">
     <button class="menu-button" onclick= "redirectproduct()">Create</button>
-    <button class="menu-button">Modify</button>
-    <button class="menu-button">Delelte</button>
+    <button class="menu-button" onclick="redirectdelete_p()">Delete</button>
 </div>
 <script>
   function redirectproduct(){
     window.location.href = "/add_product"
+  }
+  function redirectdelete_p(){
+    window.location.href="/delete_P"
   }
 </script>
 {% endblock %}

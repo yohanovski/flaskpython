@@ -46,12 +46,14 @@
 
 <div class="menu-container">
     <button class="menu-button" onclick="addshipment()">Create</button>
-    <button class="menu-button">Modify</button>
-    <button class="menu-button">Delelte</button>
+    <button class="menu-button" onclick="delete_sh()">Delete</button>
 </div>
 <script>
     function addshipment(){
         window.location.href='/add_app'
+    }
+    function delete_sh(){
+      window.location.href="/delete_Sh"
     }
 </script>
 {% endblock %}
