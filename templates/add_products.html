@@ -1,80 +1,43 @@
 {% extends "base.html" %} {%block title%} Sign Up {% endblock%}
-{% block style %} 
-<style type="text/css">
-    form{
-        align-items: center;
-        display: flex;
-        flex-direction: column;
-    }
-</style>
-{%endblock%}
+
 {% block content %}
-<h3 align = "center">Add product form</h3>
+<link rel="stylesheet" href="{{ url_for('static', filename='form.css') }}">
+<div class="box" style="margin-top: 100px;">
+    <h3 align="center">Add product form</h3>
     <form method="post">
         <div class="form-group">
-            <label for= "id_c">Code: </label>
-            <input 
-            type="id_c"
-            name="id_c" 
-            id="id_c"
-            class="form-control"
-            />
+            <label for="id_c">Code: </label>
+            <input type="id_c" name="id_c" id="id_c" class="form-control" />
         </div>
 
         <div class="form-group">
-            <label for= "Libelle">Libelle : </label>
-            <input 
-            type="Libelle"
-            name="Libelle" 
-            id="Libelle"
-            class="form-control"
-            />
+            <label for="Libelle">Libelle : </label>
+            <input type="Libelle" name="Libelle" id="Libelle" class="form-control" />
         </div>
 
         <div class="form-group">
-            <label for= "qte">Quantité : </label>
-            <input 
-            type="qte"
-            name="qte" 
-            id="qte"
-            class="form-control"
-            />
+            <label for="qte">Quantité : </label>
+            <input type="qte" name="qte" id="qte" class="form-control" />
         </div>
 
         <div class="form-group">
-            <label for= "PU_V">Prix Unitaire de vente : </label>
-            <input 
-            type="PU_V"
-            name="PU_V" 
-            id="PU_V"
-            class="form-control"
-            />
+            <label for="PU_V">Prix Unitaire de vente : </label>
+            <input type="PU_V" name="PU_V" id="PU_V" class="form-control" />
         </div>
 
-        <div class=""form-group>
+        <div class="" form-group>
             <label for="PU_A"> Prix Unitaire d'approvisionnement : </label>
-            <input 
-            type="PU_A"
-            name="PU_A"
-            id="PU_A"
-            class="form-control"
-            />
+            <input type="PU_A" name="PU_A" id="PU_A" class="form-control" />
         </div>
 
         <div class="form-group">
-            <label for= "matricule">matricule du Fournisseur: </label>
-            <input 
-            type="matricule"
-            name="matricule" 
-            id="matricule"
-            class="form-control"
-            />
+            <label for="matricule">matricule du Fournisseur: </label>
+            <input type="matricule" name="matricule" id="matricule" class="form-control" />
         </div>
-
-
         
         <br />
-  <button type="submit" class="btn btn-primary">Ajouter</button>
+        <button type="submit" class="btn btn-primary">Ajouter</button>
 
     </form>
+</div>
 {% endblock %}

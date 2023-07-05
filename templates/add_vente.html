@@ -1,83 +1,45 @@
 {% extends "base.html" %} {%block title%} Sign Up {% endblock%}
-{% block style %} 
-<style type="text/css">
-    form{
-        align-items: center;
-        display: flex;
-        flex-direction: column;
-    }
-</style>
-{%endblock%}
+
 {% block content %}
-<h3 align = "center">Add vente form</h3>
+<link rel="stylesheet" href="{{ url_for('static', filename='form.css') }}">
+<div class="box" style="margin-top: 100px;">
+    <h3 align="center">Add vente form</h3>
     <form method="post">
         <div class="form-group">
-            <label for= "CIN">N° vente: </label>
-            <input 
-            type="id_v"
-            name="id_v" 
-            id="id_v"
-            class="form-control"
-            required/>
+            <label for="CIN">N° vente: </label>
+            <input type="id_v" name="id_v" id="id_v" class="form-control" required />
         </div>
 
         <div class="form-group">
-            <label for= "CIN">date de la vente </label>
-            <input 
-            type="date"
-            name="date" 
-            id="date"
-            class="form-control"
-            requiered
-            />
+            <label for="CIN">date de la vente </label>
+            <input type="date" name="date" id="date" class="form-control" requiered />
         </div>
 
         <div class="form-group">
-            <label for= "montant">Montant de la vente : </label>
-            <input 
-            type="montant"
-            name="montant" 
-            id="montant"
-            class="form-control"
-            required
-            />
+            <label for="montant">Montant de la vente : </label>
+            <input type="montant" name="montant" id="montant" class="form-control" required />
         </div>
 
         <div class="form-group">
-            <label for= "CIN">CIN: </label>
-            <input 
-            type="CIN"
-            name="CIN" 
-            id="CIN"
-            pattern="[A-Z]{2}[1-9]{5}"
-            class="form-control"
-            />
+            <label for="CIN">CIN: </label>
+            <input type="CIN" name="CIN" id="CIN" pattern="[A-Z]{2}[1-9]{5}" class="form-control" />
 
         </div>
         <div class="form-group">
-            <label for= "id_p">Code produit: </label>
-            <input 
-            type="id_p"
-            name="id_p" 
-            id="id_p"
-            class="form-control"
-            required/>
+            <label for="id_p">Code produit: </label>
+            <input type="id_p" name="id_p" id="id_p" class="form-control" required />
         </div>
 
         <div class="form-group">
-            <label for= "qte">Qte vente: </label>
-            <input 
-            type="qte"
-            name="qte" 
-            id="qte"
-            class="form-control"
-            required/>
+            <label for="qte">Qte vente: </label>
+            <input type="qte" name="qte" id="qte" class="form-control" required />
         </div>
 
-       
+
 
         <br />
-  <button type="submit" class="btn btn-primary">Enregistrer</button>
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
 
     </form>
+</div>
 {% endblock %}
