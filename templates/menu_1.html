@@ -13,6 +13,14 @@
 </style>
 {%endblock%}
 {%block content%}
+<nav>
+  <button onclick="redirectmenu()">HOME</button>
+</nav>
+<script>
+  function redirectmenu(){
+    window.location.href = "/menu_1"
+  }
+</script>
 <div class="container">
   <h1 class="text-center">Bonjour, {{Fname}}{{Lname}}</h1>
   <div class="menu-container">

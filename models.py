@@ -26,7 +26,8 @@ class Product(db.Model):
 
 class Client(db.Model):
         CIN_C = db.Column(db.String(20), primary_key=True, unique=True)
-        name = db.Column(db.String(20))
+        Fname_c = db.Column(db.String(20))
+        Lname_c = db.Column(db.string(20))
         email = db.Column(db.String(150), unique = True)
         adresse = db.Column(db.String(150))
         Tel = db.Column(db.Integer, unique= True)

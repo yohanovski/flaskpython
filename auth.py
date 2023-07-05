@@ -2,7 +2,7 @@ import sqlite3
 from flask import Blueprint, render_template, request, redirect
 from werkzeug.security import check_password_hash
 import re
-from . import get_product_list
+
 
 DB_NAME = "database.db"
 
@@ -92,11 +92,12 @@ def add_user():
 @auth.route('/add_client', methods=['GET','POST'])
 def add_client():
     if request.method == 'POST':
-        cin = request.form.get('cin')
-        name = request.form.get('name')
+        cin = request.form.get('CIN')
+        fname = request.form.get('Fname')
+        lname = request.form.get ('Lname')
         email = request.form.get('email')
         adresse = request.form.get('adresse')
-        tel = request.form.get('tel')
+        tel = request.form.get('telephone')
 
         cin_pattern = r"[A-Z]{2}[0-9]{5}"
         if not re.match(cin_pattern, cin):
@@ -106,8 +107,8 @@ def add_client():
         conn = sqlite3.connect(DB_NAME)
         c = conn.cursor()
 
-        c.execute("INSERT INTO client (CIN_C, name, email, adresse, Tel) VALUES (?, ?, ?, ?, ?)",
-                  (cin, name, email, adresse, tel))
+        c.execute("INSERT INTO client (CIN_C, Fname_c, Lname_c, email, adresse, Tel) VALUES (?, ?, ?, ?, ?,?)",
+                  (cin, fname, lname ,email, adresse, tel))
 
         conn.commit()
         conn.close()
@@ -138,45 +139,98 @@ def add_supplier():
 
     return render_template("add_supplier.html")
 
-@auth.route("/add_sale", methods=['GET','POST'])
+@auth.route("/add_sale", methods=['GET', 'POST'])
 def add_sale():
+    if request.method == 'POST':
+        id_v = request.form.get('id_v')
+        date_vente = request.form.get('date')
+        montant_v = request.form.get('montant')
+        CIN_C = request.form.get('CIN')
+        code_p = request.form.get('id_p')
+        qte_v = request.form.get('qte')
+
+        cin_pattern = r"[A-Z]{2}[0-9]{5}"
+        if not re.match(cin_pattern, CIN_C):
+            error = "Invalid CIN. Please enter a valid CIN."
+            return render_template('add_client.html', error=error)
+
+        conn = sqlite3.connect(DB_NAME)
+        c = conn.cursor()
+
+        # Vérification de l'existence du client_id dans la table client
+        c.execute("SELECT * FROM Client WHERE client_id = ?", (CIN_C,))
+        client = c.fetchone()
+        if not client:
+            error = "Invalid client_id. Please enter a valid client_id."
+            return render_template('add_vente.html', error=error)
+
+        # Vérification de l'existence du code_p dans la table produits
+        c.execute("SELECT * FROM Produits WHERE code_p = ?", (code_p,))
+        produit = c.fetchone()
+        if not produit:
+            error = "Invalid product code. Please enter a valid product code."
+            return render_template('add_vente.html', error=error)
+
+        # Vérification de la disponibilité de la quantité de vente dans la table produits
+        c.execute("SELECT QTE FROM Produits WHERE code_p = ?", (code_p,))
+        qte_dispo = c.fetchone()
+        if not qte_dispo or int(qte_dispo[0]) < int(qte_v):
+            error = "Insufficient quantity available for sale."
+            return render_template('add_vente.html', error=error)
+
+        # Mise à jour de la quantité dans la table produits
+        nouvelle_qte = int(qte_dispo[0]) - int(qte_v)
+        c.execute("UPDATE Produits SET QTE = ? WHERE code_p = ?", (nouvelle_qte, code_p))
+
+        # Insertion de la vente dans la table Shipment
+        c.execute("INSERT INTO Shipment (id, date, Montant, client_id, Code_p, qte_vente) VALUES (?, ?, ?, ?, ?, ?)",
+                  (id_v, date_vente, montant_v, CIN_C, code_p, qte_v))
+
+        conn.commit()
+        conn.close()
+
     return render_template("add_vente.html")
+
 
 
 @auth.route("/add_app", methods=['GET','POST'])
 def add_app():
     if request.method == 'POST':
         # Récupérer les données du formulaire
+        app_id = request.form.get('id_app')
         date_app = request.form.get('date')
         montant_app = request.form.get('Montant_A')
         matricule_fournisseur = request.form.get('matricule')
-        email = request.form.get('email')
-        adresse = request.form.get('adresse')
-        telephone = request.form.get('telephone')
-        produit_selectionne = request.form.get('product_list')
+        code = request.form.get('id_c')
+        qte_app = request.form.get('qte')
 
         # Valider les données (vous pouvez ajouter vos propres validations ici)
+
+        # Vérifier si le matricule_fournisseur existe dans la table fournisseur
+        conn = sqlite3.connect(DB_NAME)
+        c = conn.cursor()
+        c.execute("SELECT * FROM fournisseur WHERE Matricule = ?", (matricule_fournisseur,))
+        fournisseur_exist = c.fetchone() is not None
+        conn.close()
+
+        if not fournisseur_exist:
+            # Afficher un message d'erreur ou effectuer une action appropriée
+            return "Le fournisseur spécifié n'existe pas."
 
         # Insérer les données dans la table Shipment
         conn = sqlite3.connect(DB_NAME)
         c = conn.cursor()
-        
-
-        # Récupérer la liste des produits
-        get_product_list()
-        
-
-        c.execute("INSERT INTO Shipment (date_app, montant_app, matricule_fournisseur, email, adresse, telephone, produit_selectionne) VALUES (?, ?, ?, ?, ?, ?, ?)",
-                  (date_app, montant_app, matricule_fournisseur, email, adresse, telephone, produit_selectionne))
-
+        c.execute("INSERT INTO Shipment (id, date, Montant, supplier_id, Code, Qte_app) VALUES (?, ?, ?, ?, ?, ?)",
+                  (app_id, date_app, montant_app, matricule_fournisseur, code, qte_app))
         conn.commit()
         conn.close()
 
         # Rediriger vers le route /shipment
         return redirect('/shipment')
     
-        # Rendre le template du formulaire avec la liste des produits
+    # Rendre le template du formulaire avec la liste des produits
     return render_template("add_app.html")
+
 
 @auth.route("/add_product", methods=['GET','POST'])
 def add_product():

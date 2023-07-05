@@ -12,6 +12,16 @@
 <h3 align = "center">Add app form</h3>
     <form method="post">
         <div class="form-group">
+            <label for= "id_app">N° shipment: </label>
+            <input 
+            type="id_app"
+            name="id_app" 
+            id="id_app"
+            class="form-control"
+            required/>
+        </div>
+
+        <div class="form-group">
             <label for= "date">Date_App: </label>
             <input 
             type="date"
@@ -42,45 +52,23 @@
         </div>
 
         <div class="form-group">
-            <label for= "email">Email : </label>
+            <label for= "id_c">Code du produit approvisionné: </label>
             <input 
-            type="email"
-            name="email" 
-            id="email"
+            type="id_c"
+            name="id_c" 
+            id="id_c"
             class="form-control"
-            />
+            required/>
         </div>
 
-        <div class="form-group">
-            <label for= "adresse">adresse: </label>
+        <div class=""form-group>
+            <label for="qte">QTE approvisionnée:</label>
             <input 
-            type="adresse"
-            name="adresse" 
-            id="adresse"
+            type="qte"
+            name="qte"
+            id="qte"
             class="form-control"
-            />
-        </div>
-
-        <div class="form-group">
-            <label for= "telephone">N°tel  : </label>
-            <input 
-            type="telephone"
-            name="telephone" 
-            id="telephone"
-            class="form-control"
-            />
-        </div>
-
-        <div class="form-group">
-            <label for= "email">Porduits Selectionnées : </label>
-            <select id="product_list" name="product_list" required>
-                <option value="">Sélectionnez un produit</option>
-                <!-- Boucle sur les produits pour créer les options -->
-                {% for product in product_list %}
-                  <option value="{{ product.id }}">{{ product.name }}</option>
-                {% endfor %}
-              </select>
-            
+            required/>
         </div>
 
 

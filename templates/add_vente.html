@@ -12,6 +12,16 @@
 <h3 align = "center">Add vente form</h3>
     <form method="post">
         <div class="form-group">
+            <label for= "CIN">N° vente: </label>
+            <input 
+            type="id_v"
+            name="id_v" 
+            id="id_v"
+            class="form-control"
+            required/>
+        </div>
+
+        <div class="form-group">
             <label for= "CIN">date de la vente </label>
             <input 
             type="date"
@@ -34,25 +44,34 @@
         </div>
 
         <div class="form-group">
-            <label for= "CIN_C">CIN client : </label>
-            <select name="cin_client" required>
-                {% for client in clients %}
-                    <option value="{{ client.CIN_C }}">{{ client.CIN_C }}</option>
-                {% endfor %}
-            </select>
+            <label for= "CIN">CIN: </label>
+            <input 
+            type="CIN"
+            name="CIN" 
+            id="CIN"
+            pattern="[A-Z]{2}[1-9]{5}"
+            class="form-control"
+            />
 
+        </div>
+        <div class="form-group">
+            <label for= "id_p">Code produit: </label>
+            <input 
+            type="id_p"
+            name="id_p" 
+            id="id_p"
+            class="form-control"
+            required/>
         </div>
 
         <div class="form-group">
-            <label for= "email">Porduits Selectionnées : </label>
-            <select id="product_list" name="product_list" required>
-                <option value="">Sélectionnez un produit</option>
-                <!-- Boucle sur les produits pour créer les options -->
-                {% for product in product_list %}
-                  <option value="{{ product.Libelle }}">{{ product.Libelle }}</option>
-                {% endfor %}
-              </select>
-            
+            <label for= "qte">Qte vente: </label>
+            <input 
+            type="qte"
+            name="qte" 
+            id="qte"
+            class="form-control"
+            required/>
         </div>
 
        

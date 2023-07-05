@@ -51,30 +51,33 @@ def create_database():
 
     c.execute('''CREATE TABLE IF NOT EXISTS client (
                     CIN_C TEXT PRIMARY KEY,
-                    name TEXT,
+                    Fname_c TEXT,
+                    Lname_c TEXT,
                     email TEXT UNIQUE,
                     adresse TEXT,
                     Tel INTEGER UNIQUE
                 )''')
 
     c.execute('''CREATE TABLE IF NOT EXISTS sale (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    id INTEGER PRIMARY KEY ,
+                    date DATE ,
                     Montant INTEGER,
                     client_id TEXT,
-                    produits INTEGER,
+                    Code_p INTEGER,
+                    qte_vente INTEGER,
                     FOREIGN KEY (client_id) REFERENCES client (CIN_C),
-                    FOREIGN KEY (produits) REFERENCES product (Code)
+                    FOREIGN KEY (Code_p) REFERENCES product (Code)
                 )''')
 
     c.execute('''CREATE TABLE IF NOT EXISTS shipment (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    id INTEGER PRIMARY KEY ,
+                    date DATE ,
                     Montant INTEGER,
                     Supplier_id TEXT,
-                    produits INTEGER,
+                    Code_p INTEGER,
+                    Qte_app INTEGER,
                     FOREIGN KEY (Supplier_id) REFERENCES supplier (Matricule),
-                    FOREIGN KEY (produits) REFERENCES product (Code)
+                    FOREIGN KEY (Code_p) REFERENCES product (Code)
                 )''')
 
     conn.commit()
@@ -83,10 +86,3 @@ def create_database():
 
 
 
-def get_product_list():
-    conn = sqlite3.connect(DB_NAME)
-    c = conn.cursor()
-    c.execute("SELECT Libelle FROM product , shipment Where product.Code = shipment.produits")
-    products = c.fetchall()
-    conn.close()
-    return products

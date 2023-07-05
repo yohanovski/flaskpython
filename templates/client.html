@@ -22,7 +22,8 @@
     <thead>
       <tr>
         <th>CIN</th>
-        <th>Nom</th>
+        <th>First_name</th>
+        <th>Last_name</th>
         <th>email</th>
         <th>adresse</th>
         <th>tel</th>
@@ -36,6 +37,8 @@
         <td>{{ client[2] }}</td>
         <td>{{ client[3] }}</td>
         <td>{{ client[4] }}</td>
+        <td>{{ client[5] }}</td>
+
       </tr>
       {% endfor %}
     </tbody>
@@ -50,7 +53,7 @@
 
 <script>
     function addclient(){
-        window.location.href('/add_client')
+        window.location.href="/add_client"
     }
 </script>
 
