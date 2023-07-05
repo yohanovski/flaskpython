@@ -107,13 +107,14 @@ def add_client():
         conn = sqlite3.connect(DB_NAME)
         c = conn.cursor()
 
-        c.execute("INSERT INTO client (CIN_C, Fname_c, Lname_c, email, adresse, Tel) VALUES (?, ?, ?, ?, ?,?)",
-                  (cin, fname, lname ,email, adresse, tel))
+        c.execute("INSERT INTO client (CIN_C, Fname_c, Lname_c, email, adresse, Tel) VALUES (?, ?, ?, ?, ?, ?)",
+          (cin, fname, lname, email, adresse, tel))
+
 
         conn.commit()
         conn.close()
 
-        return redirect('client.html')
+        return redirect('/client')
 
     return render_template("add_client.html")
 
@@ -209,7 +210,7 @@ def add_app():
         # Vérifier si le matricule_fournisseur existe dans la table fournisseur
         conn = sqlite3.connect(DB_NAME)
         c = conn.cursor()
-        c.execute("SELECT * FROM fournisseur WHERE Matricule = ?", (matricule_fournisseur,))
+        c.execute("SELECT * FROM supplier WHERE Matricule = ?", (matricule_fournisseur,))
         fournisseur_exist = c.fetchone() is not None
         conn.close()
 
@@ -220,7 +221,7 @@ def add_app():
         # Insérer les données dans la table Shipment
         conn = sqlite3.connect(DB_NAME)
         c = conn.cursor()
-        c.execute("INSERT INTO Shipment (id, date, Montant, supplier_id, Code, Qte_app) VALUES (?, ?, ?, ?, ?, ?)",
+        c.execute("INSERT INTO shipment (id, date, Montant, supplier_id, Code_p, Qte_app) VALUES (?, ?, ?, ?, ?, ?)",
                   (app_id, date_app, montant_app, matricule_fournisseur, code, qte_app))
         conn.commit()
         conn.close()

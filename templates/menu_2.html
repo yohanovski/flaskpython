@@ -2,6 +2,14 @@
 {%block style%}
 {%endblock%}
 {%block content%}
+<nav>
+  <button onclick="redirectmenu()" class="menu-button">HOME</button>
+</nav>
+<script>
+  function redirectmenu() {
+    window.location.href = "/menu_2";
+  }
+</script>
 <div class="container">
   <link rel="stylesheet" href="{{ url_for('static', filename='button.css') }}">
   <h1 class="text-center">Bonjour,  {{Fname}}{{Lname}}</h1>
