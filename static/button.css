@@ -10,12 +10,12 @@ body {
 .container-button {
   display: flex;
   flex-direction: column;
-  margin-left: 60px;
+  align-items: center;
 }
 
 .menu-button {
   display: flex;
-  margin-top: 50px;
+  margin-top: 20px;
   width: 250px;
   height: 50px;
   padding: 10px 20px;
