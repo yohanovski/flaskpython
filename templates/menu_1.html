@@ -1,28 +1,18 @@
-{%extends "base.html"%} {%block title%} Menu ADMIN{%endblock%}
-{%block style%}
-<style>
-  .menu-container {
-    height: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.menu-button{
- margin-left: 30px;
-}
-</style>
-{%endblock%}
-{%block content%}
+{% extends "base.html" %}
+{% block title %}Menu ADMIN{% endblock %}
+
+{% block content %}
 <nav>
   <button onclick="redirectmenu()">HOME</button>
 </nav>
 <script>
-  function redirectmenu(){
-    window.location.href = "/menu_1"
+  function redirectmenu() {
+    window.location.href = "/menu_1";
   }
 </script>
-<div class="container">
-  <h1 class="text-center">Bonjour, {{Fname}}{{Lname}}</h1>
+<div class="container-button">
+  <link rel="stylesheet" href="{{ url_for('static', filename='button.css') }}">
+  <h1 class="text-center">Bonjour, {{ Fname }} {{ Lname }}</h1>
   <div class="menu-container">
     <button class="menu-button" onclick="redirectuser()">Users</button>
     <button class="menu-button" onclick="redirectproduct()">Products</button>
@@ -33,26 +23,23 @@
   </div>
 </div>
 <script>
-  function redirectuser(){
-    window.location.href="/user"
+  function redirectuser() {
+    window.location.href = "/user";
   }
-  function redirectproduct(){
-    window.location.href="/product"
+  function redirectproduct() {
+    window.location.href = "/product";
   }
-  function redirectsupplier(){
-    window.location.href="/supplier"
+  function redirectsupplier() {
+    window.location.href = "/supplier";
   }
-  function redirectclient(){
-    window.location.href="/client"
+  function redirectclient() {
+    window.location.href = "/client";
   }
-  function redirectshipment(){
-    window.location.href="/shipment"
+  function redirectshipment() {
+    window.location.href = "/shipment";
   }
-  function redirectsale(){
-    window.location.href="/sale"
+  function redirectsale() {
+    window.location.href = "/sale";
   }
-
 </script>
-
-
-{%endblock%}
+{% endblock %}

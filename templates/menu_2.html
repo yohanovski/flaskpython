@@ -1,19 +1,9 @@
 {%extends "base.html"%} {%block title%} Menu EMP_VENTES{%endblock%}
 {%block style%}
-<style>
-  .menu-container {
-    height: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.menu-button{
- margin-left: 30px;
-}
-</style>
 {%endblock%}
 {%block content%}
 <div class="container">
+  <link rel="stylesheet" href="{{ url_for('static', filename='button.css') }}">
   <h1 class="text-center">Bonjour,  {{Fname}}{{Lname}}</h1>
   <div class="menu-container">
     <button class="menu-button" onclick="redirectproduct()"> Produits</button>
