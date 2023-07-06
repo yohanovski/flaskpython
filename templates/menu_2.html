@@ -14,11 +14,17 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='button.css') }}">
   <h1 class="text-center">Welcome dear Saler</h1>
   <div class="menu-container">
-    <button class="menu-button" onclick="redirectproduct()"> Produits</button>
-    <button class="menu-button" onclick="redirectclient()"> Clients</button>
-    <button class="menu-button" onclick="redirectsale()">Sales</button>
-    
+    <button class="menu-button" onclick="redirectproduct()">
+      <i class="fa fa-cube"></i> Produits
+    </button>
+    <button class="menu-button" onclick="redirectclient()">
+      <i class="fa fa-users"></i> Clients
+    </button>
+    <button class="menu-button" onclick="redirectsale()">
+      <i class="fa fa-money"></i> Sales
+    </button>
   </div>
+  
 </div>
 <script>
   function redirectproduct(){

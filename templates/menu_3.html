@@ -1,34 +1,46 @@
-{%extends "base.html"%} {%block title%} Menu EMP_APPS{%endblock%}
+{%extends "base.html"%}
+{%block title%}
+Menu EMP_APPS{%endblock%}
 {%block style%}
 {%endblock%}
 {%block content%}
 <nav>
-  <button onclick="redirectmenu()" class="menu-button">HOME</button>
+	<button onclick="redirectmenu()" class="menu-button">HOME</button>
 </nav>
 <script>
-  function redirectmenu() {
-    window.location.href = "/menu_3";
-  }
+	function redirectmenu() {
+window.location.href = "/menu_3";
+}
 </script>
 <div class="container-button">
-  <link rel="stylesheet" href="{{ url_for('static', filename='button.css') }}">
-    <h1 class="text-center">Welcome dear, Supply employee</h1>
-  <div class="menu-container">
-    <button class="menu-button" onclick="redirectproduct()">Products</button>
-    <button class="menu-button" onclick="redirectsupplier()">Suppliers</button>
-    <button class="menu-button" onclick="redirectshipment()">Shipments</button>
-  </div>
+	<link rel="stylesheet" href="{{ url_for('static', filename='button.css') }}">
+	<h1 class="text-center">Welcome dear, Supply employee</h1>
+	<div class="menu-container">
+		<button class="menu-button" onclick="redirectproduct()">
+			<i class="fa fa-cubes"></i>
+			Products
+		</button>
+		<button class="menu-button" onclick="redirectsupplier()">
+			<i class="fa fa-truck"></i>
+			Suppliers
+		</button>
+		<button class="menu-button" onclick="redirectshipment()">
+			<i class="fa fa-ship"></i>
+			Shipments
+		</button>
+	</div>
+
 </div>
 <script>
-  function redirectproduct(){
-    window.location.href="/product"
-  }
-  function redirectsupplier(){
-    window.location.href="/supplier"
-  }
-  function redirectshipment(){
-    window.location.href="/shipment"
-  }
+	function redirectproduct() {
+window.location.href = "/product"
+}
+function redirectsupplier() {
+window.location.href = "/supplier"
+}
+function redirectshipment() {
+window.location.href = "/shipment"
+}
 </script>
 
 
