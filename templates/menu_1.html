@@ -5,14 +5,9 @@
 <nav>
   <button onclick="redirectmenu()" class="menu-button">HOME</button>
 </nav>
-<script>
-  function redirectmenu() {
-    window.location.href = "/menu_1";
-  }
-</script>
 <div class="container-button">
   <link rel="stylesheet" href="{{ url_for('static', filename='button.css') }}">
-  <h1 class="text-center">Bonjour, {{ Fname }} {{ Lname }}</h1>
+  <h1 class="text-center">Welcome Admin</h1>
   <div class="menu-container">
     <button class="menu-button" onclick="redirectuser()">Users</button>
     <button class="menu-button" onclick="redirectproduct()">Products</button>
@@ -25,6 +20,9 @@
 <script>
   function redirectuser() {
     window.location.href = "/user";
+  }
+  function redirectmenu() {
+    window.location.href = "/menu_1";
   }
   function redirectproduct() {
     window.location.href = "/product";
