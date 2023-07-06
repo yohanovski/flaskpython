@@ -47,6 +47,7 @@ body {
 .menu-button:hover::after {
   width: 100%;
 }
+<<<<<<< HEAD
 
 table {
   border: 2px solid white;
@@ -59,4 +60,12 @@ th, td {
 
 h1{
   color: white;
+=======
+h1{
+  color: white;
+  font-size: 50px;
+  text-align: center;
+  margin-top: 100px;
+  margin-bottom: 100px;
+>>>>>>> 4a4e9e9effeecedfe7bedb38ab9c2ed785437e6d
 }
