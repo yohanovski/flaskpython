@@ -1,5 +1,5 @@
 import sqlite3
-from flask import Blueprint, render_template, request, redirect
+from flask import Blueprint, render_template, request, redirect, url_for
 from werkzeug.security import check_password_hash
 import re
 
@@ -46,7 +46,7 @@ def login():
 
 @auth.route('/logout')
 def logout():
-    return "<p>logout</p>"
+    return redirect(url_for('auth.login'))
 
 @auth.route('/add_user', methods=['GET','POST'])
 def add_user():
