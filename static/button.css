@@ -47,25 +47,31 @@ body {
 .menu-button:hover::after {
   width: 100%;
 }
-<<<<<<< HEAD
 
 table {
   border: 2px solid white;
 }
-th, td {
+
+th,
+td {
   border: 1px solid white;
   color: white;
   padding: 5px;
 }
 
-h1{
-  color: white;
-=======
-h1{
+
+h1 {
   color: white;
   font-size: 50px;
   text-align: center;
-  margin-top: 100px;
+  margin-top: 10px;
   margin-bottom: 100px;
->>>>>>> 4a4e9e9effeecedfe7bedb38ab9c2ed785437e6d
+}
+
+i {
+  color: white;
+  font-size: 50px;
+  text-align: center;
+  margin-right: 10px;
+  margin-top: 5px;
 }
