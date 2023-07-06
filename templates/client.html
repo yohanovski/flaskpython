@@ -1,62 +1,50 @@
 {% extends "base.html" %}
 {% block title %}Clients{% endblock %}
 
-{% block style %}
-<style>
-  .menu-container {
-    height: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.menu-button{
- margin-left: 30px;
-}
-</style>
-{% endblock %}
-
 {% block content %}
-<div class="container">
-  <h1>Clients</h1>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>CIN</th>
-        <th>First_name</th>
-        <th>Last_name</th>
-        <th>email</th>
-        <th>adresse</th>
-        <th>tel</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for client in Clients %}
-      <tr>
-        <td>{{ client[0] }}</td>
-        <td>{{ client[1] }}</td>
-        <td>{{ client[2] }}</td>
-        <td>{{ client[3] }}</td>
-        <td>{{ client[4] }}</td>
-        <td>{{ client[5] }}</td>
+<div class="container-button">
+  <link rel="stylesheet" href="{{ url_for('static', filename='button.css') }}">
+  <div class="container">
+    <h1>Clients</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>CIN</th>
+          <th>First_name</th>
+          <th>Last_name</th>
+          <th>email</th>
+          <th>adresse</th>
+          <th>tel</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for client in Clients %}
+        <tr>
+          <td>{{ client[0] }}</td>
+          <td>{{ client[1] }}</td>
+          <td>{{ client[2] }}</td>
+          <td>{{ client[3] }}</td>
+          <td>{{ client[4] }}</td>
+          <td>{{ client[5] }}</td>
 
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-</div>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 
-<div class="menu-container">
+  <div class="menu-container">
     <button class="menu-button" onclick="addclient()">Create</button>
     <button class="menu-button" onclick="delete_client()">Delete</button>
+  </div>
 </div>
-
 <script>
-    function addclient(){
-        window.location.href="/add_client"
-    }
-    function delete_client(){
-      window.location.href="/delete_C"
-    }
+  function addclient() {
+    window.location.href = "/add_client"
+  }
+  function delete_client() {
+    window.location.href = "/delete_C"
+  }
 </script>
 
 {% endblock %}

@@ -47,3 +47,16 @@ body {
 .menu-button:hover::after {
   width: 100%;
 }
+
+table {
+  border: 2px solid white;
+}
+th, td {
+  border: 1px solid white;
+  color: white;
+  padding: 5px;
+}
+
+h1{
+  color: white;
+}

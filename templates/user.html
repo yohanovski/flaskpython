@@ -1,21 +1,9 @@
 {% extends "base.html" %}
 {% block title %}Users{% endblock %}
 
-{% block style %}
-<style>
-  .menu-container {
-    height: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.menu-button{
- margin-left: 30px;
-}
-</style>
-{% endblock %}
-
 {% block content %}
+<div class="container-button">
+  <link rel="stylesheet" href="{{ url_for('static', filename='button.css') }}">
 <div class="container">
   <h1>Users</h1>
   <table class="table">
@@ -48,6 +36,7 @@
     <button class="menu-button" onclick="adduser()">Create</button>
     <button class="menu-button">Modify</button>
     <button class="menu-button" onclick="redirectdelete_u()">Delete</button>
+</div>
 </div>
 <script>
   function adduser(){
